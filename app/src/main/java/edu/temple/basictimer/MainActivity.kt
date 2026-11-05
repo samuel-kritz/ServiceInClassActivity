@@ -36,15 +36,22 @@ class MainActivity : AppCompatActivity() {
         )
 
         findViewById<Button>(R.id.startButton).setOnClickListener {
-            timerBinder?.start(100)
-//            if (timerBinder?.isRunning == true) {
-//
-//            }
+            timerBinder?.run {
+                if (!isRunning) {
+                    timerBinder?.start(100)
+                    (it as Button).text = "Pause"
+                } else {
+                    timerBinder?.pause()
+                    (it as Button).text = "Resume"
+                }
+            }
         }
 
         findViewById<Button>(R.id.stopButton).setOnClickListener {
-            timerBinder?.stop()
+            timerBinder?.run {
+                timerBinder?.stop()
+                findViewById<Button>(R.id.startButton).text = "Start"
+            }
         }
-
     }
 }
