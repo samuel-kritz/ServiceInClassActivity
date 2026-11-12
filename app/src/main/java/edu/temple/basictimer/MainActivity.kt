@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             timerBinder?.run {
                 timerBinder?.stop()
                 findViewById<Button>(R.id.startButton).text = "Start"
+                findViewById<TextView>(R.id.textView).text = "100"
             }
         }
     }
