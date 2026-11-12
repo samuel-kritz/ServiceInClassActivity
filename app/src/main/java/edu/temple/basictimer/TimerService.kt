@@ -95,7 +95,7 @@ class TimerService : Service() {
                     TimerInfo.postNewTime(i)
 
                     while (paused);
-                    sleep(1000)
+                    sleep(300)
 
                 }
                 isRunning = false

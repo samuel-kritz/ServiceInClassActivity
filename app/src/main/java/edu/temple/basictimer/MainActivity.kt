@@ -6,8 +6,11 @@ import android.content.ServiceConnection
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -66,5 +69,37 @@ class MainActivity : AppCompatActivity() {
                 findViewById<Button>(R.id.startButton).text = "Start"
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.timer_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+
+            R.id.action_start -> {
+                timerBinder?.run {
+                    if (!isRunning) {
+                        timerBinder?.start(100)
+                    } else {
+                        timerBinder?.pause()
+                    }
+                }
+            }
+
+            R.id.action_stop -> {
+                timerBinder?.run {
+                    timerBinder?.stop()
+                    findViewById<Button>(R.id.startButton).text = "Start"
+                }
+            }
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 }
