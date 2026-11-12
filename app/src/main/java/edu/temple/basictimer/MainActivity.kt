@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -76,30 +77,30 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem) =
         when (item.itemId) {
 
             R.id.action_start -> {
                 timerBinder?.run {
                     if (!isRunning) {
+                        item.setIcon(android.R.drawable.ic_media_play)
                         timerBinder?.start(100)
+                        item.setIcon(android.R.drawable.ic_media_pause)
                     } else {
                         timerBinder?.pause()
+                        item.setIcon(android.R.drawable.ic_media_play)
                     }
                 }
+                true
             }
 
             R.id.action_stop -> {
                 timerBinder?.run {
                     timerBinder?.stop()
-                    findViewById<Button>(R.id.startButton).text = "Start"
+                    findViewById<TextView>(R.id.textView).text = "100"
                 }
+                true
             }
-
-
+            else -> false
         }
-
-
-        return super.onOptionsItemSelected(item)
-    }
 }
